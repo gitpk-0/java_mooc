@@ -1,26 +1,26 @@
 public class Hideout<T> {
 
-    private T place;
+    private T inHiding;
 
     public Hideout() {
     }
 
-    public void putIntoHideout(T tohide) {
-        this.place = tohide;
+    public void putIntoHideout(T toHide) {
+        this.inHiding = toHide;
     }
 
     public T takeFromHideout() {
-        if (place == null) {
+        if (inHiding == null) {
             return null;
         }
 
-        T temp = this.place;
-        this.place = null;
+        T temp = this.inHiding;
+        this.inHiding = null;
 
         return temp;
     }
 
     public boolean isInHideout() {
-        return this.place != null;
+        return this.inHiding != null;
     }
 }
