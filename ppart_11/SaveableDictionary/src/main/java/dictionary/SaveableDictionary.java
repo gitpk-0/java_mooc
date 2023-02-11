@@ -1,5 +1,6 @@
 package dictionary;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.sql.SQLOutput;
@@ -24,7 +25,7 @@ public class SaveableDictionary {
 
     // Methods
     public void add(String words, String translation) {
-        if (!dictOne.containsKey(words) && (!dictOne.containsKey(translation))) {
+        if (!dictOne.containsKey(words)) {
             dictOne.putIfAbsent(words, translation);
             dictOne.putIfAbsent(translation, words);
         }
@@ -35,11 +36,10 @@ public class SaveableDictionary {
     }
 
     public void delete(String word) {
-        String translation = dictOne.get(word);
-        if (dictOne.containsKey(word) || dictOne.containsKey(translation)) {
-            dictOne.remove(translation);
-            dictOne.remove(word);
-        }
+        String translation = this.translate(word);
+
+        dictOne.remove(translation);
+        dictOne.remove(word);
     }
 
     public boolean load() {
@@ -50,19 +50,23 @@ public class SaveableDictionary {
 
                 this.add(parts[0], parts[1]); // adds word/translation both ways
             }
-        } catch (Exception e) {
+            return true;
+        } catch (IOException e) {
             System.out.println("Problem with loading file: " + e.getMessage());
             return false;
         }
-        return true;
+
     }
 
     public boolean save() {
         try {
             PrintWriter writer = new PrintWriter(this.file);
+
             ArrayList<String> alreadyInFile = new ArrayList<>();
+
             for (String word : this.dictOne.keySet()) {
-                String translation = this.dictOne.get(word);
+                String translation = this.translate(word);
+
                 if (!alreadyInFile.contains(word)) {
                     alreadyInFile.add(word);
                     alreadyInFile.add(translation);
@@ -70,8 +74,7 @@ public class SaveableDictionary {
                 }
             }
             writer.close();
-
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Problem with saving file: " + e.getMessage());
             return false;
         }
