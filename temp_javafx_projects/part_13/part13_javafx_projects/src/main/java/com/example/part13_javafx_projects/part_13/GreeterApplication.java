@@ -17,18 +17,17 @@ public class GreeterApplication extends Application {
     public void start(Stage window) {
         // components
         Label prompt = new Label("Enter your name and start.");
-        TextField input = new TextField("");
+        TextField name = new TextField("");
         Button start = new Button("Start");
 
         // grid + components
         GridPane grid = new GridPane();
         grid.add(prompt,0,0);
-        grid.add(input,0,1);
+        grid.add(name,0,1);
         grid.add(start,0,2);
 
         // styling
         grid.setPrefSize(300,180);
-        // grid.setAlignment(Pos.CENTER);
         grid.setAlignment(Pos.CENTER);
         grid.setVgap(30);
         grid.setHgap(10);
@@ -49,8 +48,7 @@ public class GreeterApplication extends Application {
 
         // Events
         start.setOnAction((event) -> {
-            String name = input.getText();
-            greet.setText("Welcome " + name + "!");
+            greet.setText("Welcome " + name.getText() + "!");
             window.setScene(greeting);
         });
 
