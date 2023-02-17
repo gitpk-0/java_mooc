@@ -8,8 +8,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.util.Dictionary;
-
 public class VocabularyPracticeApplication extends Application {
 
     private VPDictionary dictionary;
