@@ -62,7 +62,7 @@ public class VPPracticeView {
             this.word = this.dictionary.getRandomWord();
             prompt.setText("Translate the word '" + this.word + "'");
         });
-        
+
         return layout;
     }
 
