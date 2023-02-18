@@ -26,6 +26,4 @@ public class SavingsCalculatorApplication extends Application {
         launch(SavingsCalculatorApplication.class);
     }
 
-
-
 }
