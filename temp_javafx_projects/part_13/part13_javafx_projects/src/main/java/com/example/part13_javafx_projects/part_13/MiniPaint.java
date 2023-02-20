@@ -7,6 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+// --module-path /home/pk/jdk/javafx-sdk-17.0.6/lib --add-modules=javafx.controls
 
 public class MiniPaint extends Application {
 
