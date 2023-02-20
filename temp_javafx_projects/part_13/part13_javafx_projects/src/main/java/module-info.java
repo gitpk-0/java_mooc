@@ -1,6 +1,7 @@
 module com.example.part13_javafx_projects {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.media;
 
 
     opens com.example.part13_javafx_projects to javafx.fxml;
