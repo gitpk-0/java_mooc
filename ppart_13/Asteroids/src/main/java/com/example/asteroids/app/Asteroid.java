@@ -1,21 +1,32 @@
 package com.example.asteroids.app;
 
-import javafx.scene.shape.Polygon;
+import java.util.Random;
 
 public class Asteroid extends Character {
 
+    private double rotationalMovement;
+
     public Asteroid(int x, int y) {
         super(new PolygonFactory().createPolygon(), x, y);
+
+        Random rnd = new Random();
+
+        super.getCharacter().setRotate(rnd.nextInt(360));
+
+        int accelerationAmount = 1 + rnd.nextInt(10);
+        for (int i = 0; i < accelerationAmount; i++) {
+            accelerate();
+        }
+
+        this.rotationalMovement = 0.5 - rnd.nextDouble();
     }
 
     @Override
-    public void accelerate() {
-        double changeX = Math.cos(Math.toRadians(super.getCharacter().getRotate()));
-        double changeY = Math.sin(Math.toRadians(super.getCharacter().getRotate()));
-
-        changeX *= 0.05;
-        changeY *= 0.05;
-
-        super.movement = super.movement.add(changeX, changeY);
+    public void move() {
+        super.move();
+        super.getCharacter().setRotate(super.getCharacter().getRotate() + rotationalMovement);
     }
+
+    // @Override
+
 }
