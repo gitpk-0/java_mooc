@@ -2,15 +2,16 @@ package com.example.asteroids.app;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
 import java.security.Key;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class AsteroidsApplication extends Application {
 
@@ -20,18 +21,21 @@ public class AsteroidsApplication extends Application {
         pane.setPrefSize(600, 400);
 
         // Ship
-        Polygon ship = new Polygon(-5, -5, 10, 0, -5, 5);
-        // center of screen
-        ship.setTranslateX(300);
-        ship.setTranslateY(200);
-        ship.setRotate(30); // 30 degrees
+        Ship ship = new Ship(300, 200);
+        // Asteroids
+        List<Asteroid> asteroids = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            Random rnd = new Random();
+            Asteroid asteroid = new Asteroid(rnd.nextInt(100), rnd.nextInt(100));
+            asteroids.add(asteroid);
+        }
 
-        pane.getChildren().add(ship);
+        pane.getChildren().add(ship.getCharacter());
+        asteroids.forEach(asteroid -> pane.getChildren().add(asteroid.getCharacter()));
 
         Scene scene = new Scene(pane);
 
-        // Events
-
+        /* ----------- EVENTS ----------- */
         Map<KeyCode, Boolean> pressedKeys = new HashMap<>();
 
         scene.setOnKeyPressed(event -> {
@@ -46,15 +50,27 @@ public class AsteroidsApplication extends Application {
             @Override
             public void handle(long now) {
                 if (pressedKeys.getOrDefault(KeyCode.LEFT, false)) {
-                    ship.setRotate(ship.getRotate() - 5);
+                    ship.turnLeft();
                 }
 
                 if (pressedKeys.getOrDefault(KeyCode.RIGHT, false)) {
-                    ship.setRotate(ship.getRotate() + 5);
+                    ship.turnRight();
                 }
+
+                if (pressedKeys.getOrDefault(KeyCode.UP, false)) {
+                    ship.accelerate();
+                }
+
+                ship.move();
+                asteroids.forEach(asteroid -> asteroid.move());
+
+                asteroids.forEach(asteroid -> {
+                    if (ship.collide(asteroid)) {
+                        stop();
+                    }
+                });
             }
         }.start();
-
 
 
         stage.setTitle("Asteroids!");
