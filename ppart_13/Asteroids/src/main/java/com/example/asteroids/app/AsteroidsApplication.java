@@ -82,7 +82,7 @@ public class AsteroidsApplication extends Application {
                     }
                 }
 
-                if (pressedKeys.getOrDefault(KeyCode.SPACE, false) && projectiles.size() < 5) {
+                if (pressedKeys.getOrDefault(KeyCode.SPACE, false) && projectiles.size() < 30) {
                     System.out.println(projectiles.size());
                     // shoot
                     Projectile projectile = new Projectile((int) ship.getCharacter().getTranslateX(), (int) ship.getCharacter().getTranslateY());
@@ -146,5 +146,10 @@ public class AsteroidsApplication extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static int partsCompleted() {
+        // State how many parts you have completed using the return value of this method
+        return 4;
     }
 }

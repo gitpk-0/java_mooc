@@ -27,6 +27,5 @@ public class Asteroid extends Character {
         super.getCharacter().setRotate(super.getCharacter().getRotate() + rotationalMovement);
     }
 
-    // @Override
 
 }
