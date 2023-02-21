@@ -9,12 +9,14 @@ public abstract class Character {
 
     private Polygon character;
     private Point2D movement;
+    private Boolean alive;
 
     public Character(Polygon polygon, int x, int y) {
         this.character = polygon;
         this.character.setTranslateX(x);
         this.character.setTranslateY(y);
 
+        this.alive = true;
         this.movement = new Point2D(0, 0);
     }
 
@@ -24,6 +26,14 @@ public abstract class Character {
 
     public Point2D getMovement() {
         return movement;
+    }
+
+    public void setAlive(Boolean bool) {
+        this.alive = bool;
+    }
+
+    public Boolean isAlive() {
+        return this.alive;
     }
 
     public void setMovement(Point2D newMove) {
